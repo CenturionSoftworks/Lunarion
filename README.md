@@ -1,142 +1,240 @@
+# Lunarion UI Library
 
-# Centurion Softworks — Lunarion UI Library
+<p align="center">
+  <strong>A customizable Roblox UI library by Centurion Softworks.</strong>
+</p>
 
-![License](https://img.shields.io/badge/License-MIT-yellow.svg)
-![Language](https://img.shields.io/badge/Language-LuaU-blue.svg)
-![Platform](https://img.shields.io/badge/Platform-Roblox-red.svg)
-![Developer](https://img.shields.io/badge/Developer-Centurion%20Softworks-black.svg)
-
-**Lunarion** is a Roblox LuaU UI library developed and maintained by **Centurion Softworks**.
-
-Designed for developers who want a flexible, customizable, and feature-rich interface system for their Roblox scripts.
+<p align="center">
+  Built for developers who want a flexible, modern, and feature-rich interface.
+</p>
 
 ---
 
-## About Lunarion
+## Overview
 
-Lunarion is a UI framework whose API design is based on the **Orion UI Library API**.
+**Lunarion** is a Roblox LuaU UI library developed and maintained by **Centurion Softworks**.
 
-It maintains the familiar Orion-style development structure while introducing additional functionality, customization options, and integrations.
-
-Its architecture follows a simple hierarchy:
-
-- Window
-- Tabs
-- Sections
-- Elements
-
-Lunarion is an independent implementation and is not an official Orion UI Library release.
+It provides a structured API for creating windows, tabs, sections, and interactive UI elements. It also includes customization options, themes, notifications, configuration utilities, and additional integrations.
 
 ## Features
 
-- Customizable interface windows.
-- Multiple tabs and sections.
-- Buttons and toggles.
-- Sliders and dropdowns.
-- Keybinds.
-- Color pickers.
-- Labels and paragraphs.
-- Custom themes.
-- Notification system.
-- Configuration saving and loading.
-- Homeboard dashboard.
-- Search functionality.
-- Responsive interface layouts.
-- Icon library integrations.
-- Optional analytics and telemetry.
-- Key verification interface.
-- Window resizing and visibility controls.
+- **Window Management** — Create and customize UI windows.
+- **Tabs and Sections** — Organize interfaces into structured layouts.
+- **Interactive Elements** — Buttons, toggles, sliders, dropdowns, and more.
+- **Keybinds** — Add keyboard interactions to your interface.
+- **Color Pickers** — Allow users to customize colors.
+- **Theme System** — Create, register, and switch between themes.
+- **Notifications** — Display notifications through the library.
+- **Configuration Support** — Save and load configurations when supported by the runtime.
+- **Key Systems** — Add key-based access systems.
+- **Analytics** — Optional local analytics functionality.
+- **Icon Integrations** — Support for multiple icon collections.
 
-## Supported UI Elements
+---
 
-| Element | API Method |
-|---|---|
-| Button | AddButton |
-| Toggle | AddToggle |
-| Slider | AddSlider |
-| Dropdown | AddDropdown |
-| Keybind | AddBind |
-| Color Picker | AddColorpicker |
-| Label | AddLabel |
-| Paragraph | AddParagraph |
-| Warning Label | AddWarningLabel |
-| Approval Label | AddApproveLabel |
-| Custom Label | AddCustomLabel |
+## Installation
 
-## API Integrations
+Load Lunarion using the following loader:
 
-Lunarion uses several supporting APIs and integrations:
+```lua
+local Lunarion = loadstring(game:HttpGet(
+    "https://raw.githubusercontent.com/CenturionSoftworks/Lunarion/main/Lunarion.lua"
+))()
+```
 
-| API / Integration | Purpose |
-|---|---|
-| Orion-style API | Main UI API design |
-| Lucide | Icon library |
-| Solar | Icon library |
-| Gravity UI | Icon library |
-| Footagesus/Icons | Icon resolution |
-| Roblox Services | Interface and gameplay integration |
-| Runtime APIs | Optional environment-specific functionality |
+> **Note:** This loader requires an environment that supports `loadstring` and HTTP requests. These are not standard capabilities available to ordinary Roblox LocalScripts.
 
-These are supporting integrations, not separate UI frameworks bundled together.
+---
 
 ## Quick Start
 
 ```lua
-local Lunarion = loadstring(game:HttpGet("YOUR_RAW_URL"))()
+local Lunarion = loadstring(game:HttpGet(
+    "https://raw.githubusercontent.com/CenturionSoftworks/Lunarion/main/Lunarion.lua"
+))()
 
 local Window = Lunarion:MakeWindow({
-    Name = "My Script",
-    Theme = "Lunarion",
-    SaveConfig = true,
-    IntroEnabled = false,
+    Name = "My Lunarion Interface",
+    HidePremium = false,
+    SaveConfig = true
 })
 
 local MainTab = Window:MakeTab({
     Name = "Main",
-    Icon = "house",
+    Icon = "home"
 })
 
-local Section = MainTab:AddSection({
-    Name = "Main Controls",
+local MainSection = MainTab:AddSection({
+    Name = "Main Controls"
 })
 
-Section:AddButton({
+MainSection:AddButton({
     Name = "Example Button",
     Callback = function()
         print("Hello from Lunarion!")
-    end,
+    end
+})
+
+MainSection:AddToggle({
+    Name = "Example Toggle",
+    Default = false,
+    Callback = function(Value)
+        print("Toggle:", Value)
+    end
+})
+
+MainSection:AddSlider({
+    Name = "Example Slider",
+    Min = 0,
+    Max = 100,
+    Default = 50,
+    Increment = 1,
+    ValueName = "Value",
+    Callback = function(Value)
+        print("Slider:", Value)
+    end
 })
 ```
 
-Replace `YOUR_RAW_URL` with your published source URL. This loader requires an environment supporting `loadstring` and `game:HttpGet`.
+---
+
+## UI Elements
+
+Lunarion provides several interface elements.
+
+| Element | Description |
+|---|---|
+| `AddButton` | Creates a clickable button. |
+| `AddToggle` | Creates an on/off toggle. |
+| `AddSlider` | Creates a numeric slider. |
+| `AddDropdown` | Creates a selection dropdown. |
+| `AddBind` | Creates a keybind control. |
+| `AddColorpicker` | Creates a color selection control. |
+| `AddLabel` | Creates a text label. |
+| `AddParagraph` | Creates a paragraph element. |
+| `AddWarningLabel` | Creates a warning-style label. |
+| `AddApproveLabel` | Creates an approval-style label. |
+| `AddCustomLabel` | Creates a customizable label. |
+
+---
+
+## Built-in Themes
+
+Lunarion includes the following built-in themes:
+
+- Lunarion
+- Default
+- Amethyst
+- Ocean
+- Rose
+- Emerald
+- Light
+- Sakura
+
+You can also register your own themes through the theme API.
+
+---
+
+## Icon Integrations
+
+Lunarion includes integrations for multiple icon collections:
+
+- Lucide
+- Solar
+- Gravity UI
+- Footagesus/Icons
+
+Material and Feather aliases are also supported through Lucide mappings.
+
+---
+
+## Additional Features
+
+### Notifications
+
+Display notifications through Lunarion's notification functionality.
+
+### Key Systems
+
+Create key-based access systems using the library's key system functionality.
+
+### Themes
+
+Register and apply custom themes to customize the appearance of your interface.
+
+### Configuration
+
+Save configuration data when the execution environment provides the required file APIs.
+
+### Analytics
+
+Lunarion includes optional local analytics functionality. Analytics are disabled by default.
+
+---
 
 ## Documentation
 
-For the complete API reference, configuration options, methods, and examples, see:
+For the full API reference, examples, and additional information, see:
 
 **[Documentation.md](Documentation.md)**
 
+---
+
+## Project Structure
+
+```text
+Lunarion/
+├── Lunarion.lua
+├── README.md
+├── Documentation.md
+├── LICENSE
+└── .gitignore
+```
+
+---
+
+## Requirements
+
+Some functionality depends on the execution environment.
+
+| Capability | Purpose |
+|---|---|
+| `loadstring` | Loads the library dynamically. |
+| `game:HttpGet()` | Retrieves the library source. |
+| File APIs | Enables configuration persistence. |
+| GUI APIs | Supports environment-specific interface placement. |
+| Clipboard APIs | Enables clipboard-related functionality. |
+
+These capabilities are environment-dependent and are not all standard Roblox APIs.
+
+---
+
 ## Credits
 
-Lunarion acknowledges the third-party projects and resources referenced by its implementation:
+Developed and maintained by:
 
-- Lucide Icons — ISC License.
-- Solar Icon Set — CC BY 4.0.
-- Gravity UI Icons — MIT License.
-- Footagesus/Icons — MIT License.
+**Centurion Softworks**
 
-Third-party assets remain subject to their respective licenses.
+Third-party projects and icon integrations:
+
+- [Lucide](https://lucide.dev/)
+- [Solar Icons](https://solar-icons.com/)
+- [Gravity UI](https://gravity-ui.com/)
+- [Footagesus/Icons](https://github.com/Footagesus/Icons)
+
+Please refer to their respective licenses for usage and attribution requirements.
+
+---
 
 ## License
 
 Lunarion is distributed under the MIT License.
 
-See [LICENSE](LICENSE) for the complete license text.
+See the [LICENSE](LICENSE) file for details.
 
-## Developer
+---
 
-**CENTURION SOFTWORKS**
-
-Independent Roblox software and UI library development.
-
-Building tools for developers, and helping exploiters.
+<p align="center">
+  <strong>Lunarion UI Library</strong><br>
+  Centurion Softworks
+</p>
